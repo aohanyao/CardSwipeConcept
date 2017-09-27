@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">CardSwipeConcept2</string>
+    <string name="app_name">CardSwipeConcept</string>
+    <string name="title_activity_main2">CardSwipeConcept</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
