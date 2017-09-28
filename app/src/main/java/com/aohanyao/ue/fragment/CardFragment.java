@@ -30,6 +30,13 @@ public class CardFragment extends Fragment {
         return fragment;
     }
 
+    public void setBackgroundColor(int color) {
+        if (color == 0) {
+            getView().findViewById(R.id.ll_card_bg).setBackgroundColor(getArguments().getInt("color"));
+        } else {
+            getView().findViewById(R.id.ll_card_bg).setBackgroundColor(color);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +48,6 @@ public class CardFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getView().findViewById(R.id.ll_card_bg).setBackgroundColor(getArguments().getInt("color"));
+        setBackgroundColor(0);
     }
 }

@@ -5,12 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.aohanyao.ue.fragment.CardFragment;
 import com.aohanyao.ue.fragment.ContentFragment;
 import com.aohanyao.ue.transformer.ScaleInAlphaTransformer;
 import com.aohanyao.ue.ui.NoScrollViewPager;
+import com.aohanyao.ue.util.ColorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initCard() {
         //C<->A<->B<->C<->A
-        final List<Fragment> mFragment = new ArrayList<>();
+        final List<CardFragment> mFragment = new ArrayList<>();
         mFragment.add(CardFragment.newInstance(cardColors[3]));
         mFragment.add(CardFragment.newInstance(cardColors[0]));
         mFragment.add(CardFragment.newInstance(cardColors[1]));
@@ -97,17 +99,64 @@ public class MainActivity extends AppCompatActivity {
         llbg.setBackgroundColor(bgColors[1]);
 
         vpCard.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            float lastPositionOffset = 0L;
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                if (lastPositionOffset > positionOffset && positionOffset != 0) {
+                    //右滑
+                    Log.e("direction", "right");
+
+                    try {
+                        int lastReal = vpCard.getAdapter().getCount() - 2;
+                        if (position > lastReal) {
+                            position = 1;
+                        }
+                        int bgColor = ColorUtils.evaluate(positionOffset, bgColors[position], bgColors[position + 1]);
+                        llbg.setBackgroundColor(bgColor);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else if (lastPositionOffset < positionOffset && positionOffset != 0) {
+                    //左滑
+//                    Log.e("direction", "left");
+                    try {
+                        if (position == 0) {
+                            position = vpCard.getAdapter().getCount() - 2;
+                        }
+                        int bgColor = ColorUtils.evaluate(positionOffset, bgColors[position], bgColors[position + 1]);
+                        llbg.setBackgroundColor(bgColor);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                lastPositionOffset = positionOffset;
+//                try {
+//                    mFragment.get(position ).setBackgroundColor(0);
+//                    mFragment.get(position + 1).setBackgroundColor(0);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
+                //背景颜色转变
             }
 
             @Override
             public void onPageSelected(int position) {
                 //设置当前背景颜色
-                llbg.setBackgroundColor(bgColors[position]);
-                //vpContent.setCurrentItem(position);
-
+                int bgColor = bgColors[position];
+                //llbg.setBackgroundColor(bgColor);
+                //两边颜色
+//                try {
+//                    mFragment.get(position - 1).setBackgroundColor(bgColor);
+////                    mFragment.get(position + 1).setBackgroundColor(bgColor);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override
@@ -136,5 +185,6 @@ public class MainActivity extends AppCompatActivity {
         vpContent = (NoScrollViewPager) findViewById(R.id.vp_content);
         llbg = findViewById(R.id.ll_bg);
     }
+
 
 }
