@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    tools:showIn="@layout/fragment_content">
+
+    <View
+        android:id="@+id/v_ovl"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/cirle_round_bg" />
+
+    <View
+        android:id="@+id/v_l"
+        android:layout_width="100dp"
+        android:layout_height="7dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/v_ovl"
+        android:background="@drawable/card_round_bg" />
+
+    <View
+        android:layout_width="70dp"
+        android:layout_height="7dp"
+        android:layout_below="@id/v_l"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/v_ovl"
+        android:background="@drawable/card_round_bg" />
+
+    <View
+        android:id="@+id/v_r"
+        android:layout_width="30dp"
+        android:layout_height="7dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/card_round_bg" />
+
+    <TextView
+        android:layout_toLeftOf="@id/v_r"
+        android:layout_width="wrap_content"
+        android:text="$"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:textColor="#d6dee7"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

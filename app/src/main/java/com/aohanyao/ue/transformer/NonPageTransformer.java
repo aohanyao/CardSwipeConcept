@@ -1,4 +1,4 @@
-package com.aohanyao.ue;
+package com.aohanyao.ue.transformer;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
