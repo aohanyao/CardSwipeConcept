@@ -10,14 +10,11 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.relex.circleindicator.CircleIndicator;
-
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager vpCard;
-    private CircleIndicator indicator;
     private int[] cardColors = {0xff1678c4, 0xffe6424a, 0xffb34dae, 0xffff8a2f};
-    private int[] bgColors = {0xff035a9e, 0xffba3139, 0xff8c4284, 0xffff6b21};
+    private int[] bgColors = {0xffff6b21, 0xff035a9e, 0xffba3139, 0xff8c4284, 0xffff6b21, 0xff035a9e};
     private View llbg;
 
     @Override
@@ -30,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initCard() {
+        //C<->A<->B<->C<->A
         final List<Fragment> mFragment = new ArrayList<>();
+        mFragment.add(CardFragment.newInstance(cardColors[3]));
         mFragment.add(CardFragment.newInstance(cardColors[0]));
         mFragment.add(CardFragment.newInstance(cardColors[1]));
         mFragment.add(CardFragment.newInstance(cardColors[2]));
         mFragment.add(CardFragment.newInstance(cardColors[3]));
+        mFragment.add(CardFragment.newInstance(cardColors[0]));
 
         vpCard.setPageMargin(40);
         vpCard.setPageTransformer(true, new ScaleInAlphaTransformer());
@@ -50,10 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 return mFragment.size();
             }
         });
+        vpCard.setCurrentItem(1);
 
-        indicator.setViewPager(vpCard);
-
-        llbg.setBackgroundColor(bgColors[0]);
+        llbg.setBackgroundColor(bgColors[1]);
 
         vpCard.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -64,18 +63,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 llbg.setBackgroundColor(bgColors[position]);
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    int curr = vpCard.getCurrentItem();
+                    int lastReal = vpCard.getAdapter().getCount() - 2;
+                    if (curr == 0) {
+                        vpCard.setCurrentItem(lastReal, false);
+                    } else if (curr > lastReal) {
+                        vpCard.setCurrentItem(1, false);
+                    }
+                }
             }
         });
     }
 
     private void initView() {
         vpCard = (ViewPager) findViewById(R.id.vp_card);
-        indicator = (CircleIndicator) findViewById(R.id.indicator);
         llbg = findViewById(R.id.ll_bg);
     }
 
