@@ -103,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //-----------------------------联动 下面的内容
+                int width = vpContent.getWidth();
+                //滑动内部Viewpager
+                vpContent.scrollTo((int) (width * position + width * positionOffset), 0);
+                //-----------------------------联动 下面的内容
+
 
                 if (lastPositionOffset > positionOffset && positionOffset != 0) {
                     //右滑
