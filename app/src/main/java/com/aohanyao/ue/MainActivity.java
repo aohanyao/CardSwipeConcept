@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.aohanyao.ue.fragment.CardFragment;
@@ -112,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (lastPositionOffset > positionOffset && positionOffset != 0) {
                     //右滑
-                    Log.e("direction", "right");
-
                     try {
                         int lastReal = vpCard.getAdapter().getCount() - 2;
                         if (position > lastReal) {
@@ -128,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (lastPositionOffset < positionOffset && positionOffset != 0) {
                     //左滑
-//                    Log.e("direction", "left");
                     try {
                         if (position == 0) {
                             position = vpCard.getAdapter().getCount() - 2;
@@ -141,28 +137,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 lastPositionOffset = positionOffset;
-//                try {
-//                    mFragment.get(position ).setBackgroundColor(0);
-//                    mFragment.get(position + 1).setBackgroundColor(0);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-                //背景颜色转变
             }
 
             @Override
             public void onPageSelected(int position) {
-                //设置当前背景颜色
-                int bgColor = bgColors[position];
-                //llbg.setBackgroundColor(bgColor);
-                //两边颜色
-//                try {
-//                    mFragment.get(position - 1).setBackgroundColor(bgColor);
-////                    mFragment.get(position + 1).setBackgroundColor(bgColor);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+
             }
 
             @Override
@@ -177,9 +156,6 @@ public class MainActivity extends AppCompatActivity {
                     } else if (curr > lastReal) {
                         vpContent.setCurrentItem(1, false);
                         vpCard.setCurrentItem(1, false);
-                    } else {
-                        vpContent.setCurrentItem(curr);
-
                     }
                 }
             }
