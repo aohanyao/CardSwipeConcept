@@ -15,7 +15,8 @@ import com.aohanyao.ue.util.ColorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+///TODO 1 剩余左右颜色没有做完
+///TODO 2 使用自定义View来实现
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager vpCard;
